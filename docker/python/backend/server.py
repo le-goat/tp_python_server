@@ -2,6 +2,16 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import json
 
+PORT = 8000
+
+# Config de la connexion au server mysql
+db_config = {
+    "host": "mysql_server",
+    "user": "root",
+    "password": "password",
+    "database": "your_database",
+}
+
 class SimpleRequestHandler(BaseHTTPRequestHandler):
     data_store = []
 
@@ -44,10 +54,10 @@ class SimpleRequestHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
 
-def run_server(port=8000):
-    server_address = ('', port)
+def run_server(PORT):
+    server_address = ('', PORT)
     httpd = HTTPServer(server_address, SimpleRequestHandler)
-    print(f'Starting server on port {port}...')
+    print(f'Starting server on port {PORT}...')
     httpd.serve_forever()
 
 if __name__ == '__main__':
