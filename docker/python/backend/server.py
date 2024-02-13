@@ -2,16 +2,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 import json
 import mysql.connector
+from dbConnector import create_db_connection
 
 PORT = 8000
 
 # Config de la connexion au server mysql
-db_config = {
-    "host": "172.18.0.2",
-    "user": "userIterator",
-    "password": "qwerty1234",
-    "database": "iterator_db",
-}
 
 
 class SimpleRequestHandler(BaseHTTPRequestHandler):
@@ -19,7 +14,7 @@ class SimpleRequestHandler(BaseHTTPRequestHandler):
     iterator = 0
 
     def run_query(self, query, params=None, fetchall=False):
-        connection = mysql.connector.connect(**db_config)
+        connection = create_db_connection("localhost", "root","", "pythonAnsible")
         cursor = connection.cursor()
         cursor.execute(query, params)
         if fetchall:
