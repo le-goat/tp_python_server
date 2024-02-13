@@ -1,6 +1,4 @@
-from dotenv import load_dotenv, find_dotenv
 from mysql.connector import Error
-import os
 
 
 def execute_query(connection, query):

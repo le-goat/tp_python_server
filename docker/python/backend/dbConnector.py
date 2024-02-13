@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-import pandas as pd
 
 
 # CONNECTION A LA DB SANS SON NOM
