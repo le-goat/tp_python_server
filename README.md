@@ -2,6 +2,7 @@
 
 ## Équipe : 
 * BENALIA Mohamed
+* BREVET Bastien
 * CASPAR Gauthier
-* LATTIER Innoncent
+* LATTIER Innocent
 * PELLEGRIN Pierre
