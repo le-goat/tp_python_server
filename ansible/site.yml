@@ -1,0 +1,6 @@
+- name: "Deploy infrastructure"
+  hosts: my_local_servers
+  roles:
+    - backend
+    - mysql
+    - command

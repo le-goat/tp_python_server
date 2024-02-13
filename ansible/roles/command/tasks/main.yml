@@ -1,0 +1,10 @@
+- name: Execute Docker Compose command
+  community.docker.docker_compose:
+    project_src: "{{ playbook_dir }}"
+    project_name: "{{ item }}"
+    build: yes
+  with_items:
+    - build
+    - start
+    - stop
+    - clean

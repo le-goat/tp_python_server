@@ -1,0 +1,3 @@
+- name: "Afficher la variable du fichier d'inventaire"
+  debug: 
+    msg: "La variable à afficher est : {{content.to_print}}"
