@@ -4,10 +4,6 @@ WORKDIR /app
 
 COPY backend/ .
 
-RUN pip install mysql-connector-python
-
-# Ajouter ces deux lignes pour exécuter dbCreator.py et tableCreator.py avant de lancer server.py
-RUN python dbCreator.py
-RUN python tableCreator.py
+RUN pip install mysql mysql-connector-python mysqlclient PyMySQL
 
 CMD ["python", "server.py"]

@@ -1,33 +1,33 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import urlparse, parse_qs
 import json
-import mysql.connector
-from dbConnector import create_db_connection
+import pymysql
 
 PORT = 8000
 
-# Config de la connexion au server mysql
-
 
 class SimpleRequestHandler(BaseHTTPRequestHandler):
-    data_store = []
-    iterator = 0
-
     def run_query(self, query, params=None, fetchall=False):
-        connection = create_db_connection("localhost", "root","", "pythonAnsible")
-        cursor = connection.cursor()
-        cursor.execute(query, params)
-        if fetchall:
-            result = cursor.fetchall()
-        else:
-            result = cursor.fetchone()
+        connection = pymysql.connect(
+            host="127.0.0.1",
+            user="userIterator",
+            password="qwerty1234",
+            database="iterator-db",
+            charset="utf8mb4",
+            port=3306,
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        with connection.cursor() as cursor:
+            cursor.execute(query, params)
+            if fetchall:
+                result = cursor.fetchall()
+            else:
+                result = cursor.fetchone()
         connection.commit()
         connection.close()
         return result
 
     def do_GET(self):
         if self.path == '/health':
-            # Route /health
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
@@ -48,7 +48,6 @@ class SimpleRequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         if self.path == '/add':
-            # Route /add
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             data = json.loads(post_data.decode('utf-8'))
@@ -80,6 +79,7 @@ def run_server(port):
     httpd = HTTPServer(server_address, SimpleRequestHandler)
     print(f'Starting server on port {port}...')
     httpd.serve_forever()
+
 
 
 if __name__ == '__main__':
