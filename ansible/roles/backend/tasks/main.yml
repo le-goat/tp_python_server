@@ -1,0 +1,5 @@
+- name: Build and start backend service
+  community.docker.docker_compose:
+    project_src: "{{ playbook_dir }}/Python"
+    project_name: backend
+    build: yes

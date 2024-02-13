@@ -7,4 +7,23 @@ services:
       dockerfile: ./docker/mysql/Dockerfile
     restart: always
     container_name: mysql-container
- 
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Python/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    container_name: backend-container
+
+command:
+  build:
+    - docker-compose build
+  start:
+    - docker-compose up -d
+  stop:
+    - docker-compose down
+  clean:
+    - docker-compose down -v --remove-orphans

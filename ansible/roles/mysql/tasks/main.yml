@@ -1,0 +1,5 @@
+- name: Build and start MySQL service
+  community.docker.docker_compose:
+    project_src: "{{ playbook_dir }}/docker/mysql"
+    project_name: mysql
+    build: yes
